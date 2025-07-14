@@ -81,6 +81,10 @@ type (
 		// then it should return true. This boolean, and any errors, will be passed to subsequent handlers.
 		OnPublishReceived []func(PublishReceived) (bool, error)
 
+		// ParallelizePublishReceived indicates whether this client should spin off handler in a goroutine or handle received
+		// packets serially. If this is set to true, it is not guaranteed that packets received will be handled in order
+		ParallelizePublishReceived bool
+
 		PacketTimeout time.Duration
 		// OnServerDisconnect is called only when a packets.DISCONNECT is received from server
 		OnServerDisconnect func(*Disconnect)
@@ -440,37 +444,46 @@ func (c *Client) ack(pb *packets.Publish) {
 // terminates when publishPackets closed
 func (c *Client) routePublishPackets() {
 	for pb := range c.publishPackets {
-		// Copy onPublishReceived so lock is only held briefly
-		c.onPublishReceivedMu.Lock()
-		handlers := make([]func(PublishReceived) (bool, error), len(c.onPublishReceived))
-		for i := range c.onPublishReceived {
-			handlers[i] = c.onPublishReceived[i]
+		if c.config.ParallelizePublishReceived {
+			packetCopy := *pb
+			go c.routePublishPacket(&packetCopy)
+		} else {
+			c.routePublishPacket(pb)
 		}
-		c.onPublishReceivedMu.Unlock()
+	}
+}
 
-		if c.config.EnableManualAcknowledgment && pb.QoS != 0 {
-			c.acksTracker.add(pb)
-		}
+func (c *Client) routePublishPacket(pb *packets.Publish) {
+	// Copy onPublishReceived so lock is only held briefly
+	c.onPublishReceivedMu.Lock()
+	handlers := make([]func(PublishReceived) (bool, error), len(c.onPublishReceived))
+	for i := range c.onPublishReceived {
+		handlers[i] = c.onPublishReceived[i]
+	}
+	c.onPublishReceivedMu.Unlock()
 
-		var handled bool
-		var errs []error
-		pkt := PublishFromPacketPublish(pb)
-		for _, h := range handlers {
-			ha, err := h(PublishReceived{
-				Packet:         pkt,
-				Client:         c,
-				AlreadyHandled: handled,
-				Errs:           errs,
-			})
-			if ha {
-				handled = true
-			}
-			errs = append(errs, err)
-		}
+	if c.config.EnableManualAcknowledgment && pb.QoS != 0 {
+		c.acksTracker.add(pb)
+	}
 
-		if !c.config.EnableManualAcknowledgment {
-			c.ack(pb)
+	var handled bool
+	var errs []error
+	pkt := PublishFromPacketPublish(pb)
+	for _, h := range handlers {
+		ha, err := h(PublishReceived{
+			Packet:         pkt,
+			Client:         c,
+			AlreadyHandled: handled,
+			Errs:           errs,
+		})
+		if ha {
+			handled = true
 		}
+		errs = append(errs, err)
+	}
+
+	if !c.config.EnableManualAcknowledgment {
+		c.ack(pb)
 	}
 }
 
