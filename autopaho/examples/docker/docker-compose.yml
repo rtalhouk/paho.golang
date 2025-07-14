@@ -23,7 +23,7 @@ services:
         target: /mosquitto/log
   pub:
     # We include the whole paho module in the context because otherwise a separate module would be needed (and this would
-    # pull in github.com/eclipse/paho.golang which makes testing difficult.
+    # pull in github.com/rtalhouk/paho.golang which makes testing difficult.
     build:
       context: ../../../
       dockerfile: autopaho/examples/docker/publisher/dockerfile
@@ -46,7 +46,7 @@ services:
         target: /binds/sessionstate
   sub:
     # We include the whole paho module in the context because otherwise a separate module would be needed (and this would
-    # pull in github.com/eclipse/paho.golang which makes testing difficult.
+    # pull in github.com/rtalhouk/paho.golang which makes testing difficult.
     build:
       context: ../../../
       dockerfile: autopaho/examples/docker/subscriber/dockerfile

@@ -23,10 +23,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/eclipse/paho.golang/packets"
-	paholog "github.com/eclipse/paho.golang/paho/log"
-	"github.com/eclipse/paho.golang/paho/session"
-	"github.com/eclipse/paho.golang/paho/store/memory"
+	"github.com/rtalhouk/paho.golang/packets"
+	paholog "github.com/rtalhouk/paho.golang/paho/log"
+	"github.com/rtalhouk/paho.golang/paho/session"
+	"github.com/rtalhouk/paho.golang/paho/store/memory"
 )
 
 // The Session State, as per the MQTT spec, contains:

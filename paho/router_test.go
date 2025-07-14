@@ -19,7 +19,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/eclipse/paho.golang/packets"
+	"github.com/rtalhouk/paho.golang/packets"
 )
 
 func Test_match(t *testing.T) {

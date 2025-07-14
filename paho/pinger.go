@@ -22,8 +22,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/eclipse/paho.golang/packets"
-	"github.com/eclipse/paho.golang/paho/log"
+	"github.com/rtalhouk/paho.golang/packets"
+	"github.com/rtalhouk/paho.golang/paho/log"
 )
 
 type Pinger interface {
@@ -106,7 +106,7 @@ func (p *DefaultPinger) Run(ctx context.Context, conn net.Conn, keepAlive uint16
 			// The MQTT Spec only requires that a ping be sent if no control packets have been SENT within the keepalive
 			// period (MQTT-3.1.2-20). Only sending PING in that one case can cause issues if the only activity is
 			// outgoing messages, a half-open connection should result in a TCP timeout but this can take a long time
-			//(issue #288). To address this we PING if we have not both sent, and received, packets within keepAlive.
+			// (issue #288). To address this we PING if we have not both sent, and received, packets within keepAlive.
 			var pingDue time.Time
 			if p.lastPacketSent.Before(p.lastPacketReceived) {
 				pingDue = p.lastPacketSent.Add(interval)

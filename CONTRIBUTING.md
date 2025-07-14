@@ -66,11 +66,11 @@ Search for Bugs:
 
 This project uses Github issues to track ongoing development and issues.
 
-- https://github.com/eclipse/paho.golang/issues
+- https://github.com/rtalhouk/paho.golang/issues
 
 Create a New Bug:
 -----------------
 
 Be sure to search for existing bugs before you create another one. Remember that contributions are always welcome!
 
-- https://github.com/eclipse/paho.golang/issues
+- https://github.com/rtalhouk/paho.golang/issues

@@ -1,4 +1,4 @@
-module github.com/eclipse/paho.golang
+module github.com/rtalhouk/paho.golang
 
 go 1.23
 

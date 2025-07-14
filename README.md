@@ -3,10 +3,10 @@ Eclipse Paho MQTT Go client
 
 This repository contains the source code for the [Eclipse Paho](http://eclipse.org/paho) MQTT V5 Go client library. 
 
-**Warning breaking change** - Release 0.12 contains a breaking change; see the [release notes](https://github.com/eclipse/paho.golang/releases/tag/v0.12.0). 
+**Warning breaking change** - Release 0.12 contains a breaking change; see the [release notes](https://github.com/rtalhouk/paho.golang/releases/tag/v0.12.0). 
 
-Release [v0.20](https://github.com/eclipse/paho.golang/releases/tag/v0.20.0) includes major changes (some breaking), 
-much of this is due to the introduction of [full QOS1/2 support](https://github.com/eclipse/paho.golang/issues/25).
+Release [v0.20](https://github.com/rtalhouk/paho.golang/releases/tag/v0.20.0) includes major changes (some breaking), 
+much of this is due to the introduction of [full QOS1/2 support](https://github.com/rtalhouk/paho.golang/issues/25).
 We do expect that most code will run as-is, or with minor changes; known breaking changes are noted below (but due to 
 the extensive changes between releases 0.12 and 0.20 this list is probably incomplete):
 
@@ -35,16 +35,16 @@ There is also a [v3 client](https://github.com/eclipse/paho.mqtt.golang) availab
 Quick Start
 -----------
 
-We recommend that new users begin with [`autopaho`](https://github.com/eclipse/paho.golang/tree/master/autopaho); this
+We recommend that new users begin with [`autopaho`](https://github.com/rtalhouk/paho.golang/tree/master/autopaho); this
 provides a simple client that should be sufficient for most use-cases.
 
 Folder Structure
 ----------------
 
-The main library is in the `paho` folder (so for general usage `import "github.com/eclipse/paho.golang/paho"`). There are
+The main library is in the `paho` folder (so for general usage `import "github.com/rtalhouk/paho.golang/paho"`). There are
 examples off this folder in `paho/cmd` and extensions in `paho/extensions`.
 
-`autopaho` (`import "github.com/eclipse/paho.golang/autopaho"`) is a fairly simple wrapper that automates the connection
+`autopaho` (`import "github.com/rtalhouk/paho.golang/autopaho"`) is a fairly simple wrapper that automates the connection
 process and will automatically reconnect should the connection drop. For many users this package will provide a simple
 way to connect and publish/subscribe as well as demonstrating how to use the `paho.golang/paho`.
 `autopaho/examples/docker` provides a full example using docker to run a publisher and subscriber (connecting to
@@ -54,17 +54,17 @@ Installation and Build
 ----------------------
 
 This client is designed to work with the standard Go tools. When using Go Modules import one of the packages 
-(e.g. `import "github.com/eclipse/paho.golang/autopaho"`) and run `go mod tidy`. If you wish to manually add
+(e.g. `import "github.com/rtalhouk/paho.golang/autopaho"`) and run `go mod tidy`. If you wish to manually add
 the library as a dependency run:
 
 ```bash
-go get github.com/eclipse/paho.golang
+go get github.com/rtalhouk/paho.golang
 ```
 
 Reporting bugs
 --------------
 
-Please report bugs by raising issues for this project in GitHub [https://github.com/eclipse/paho.golang/issues](https://github.com/eclipse/paho.golang/issues).
+Please report bugs by raising issues for this project in GitHub [https://github.com/rtalhouk/paho.golang/issues](https://github.com/rtalhouk/paho.golang/issues).
 
 A limited number of contributors monitor the issues section so, if you have a general question, please see the
 resources in the [more information](#more-information) section for help.
@@ -132,7 +132,7 @@ There is much more information available via the [MQTT community site](http://mq
 QOS1/QOS2 Implementation
 ----------------
 
-The major feature missing from this library, as at release 0.12, was support for [session persistence](https://github.com/eclipse/paho.golang/issues/25); 
+The major feature missing from this library, as at release 0.12, was support for [session persistence](https://github.com/rtalhouk/paho.golang/issues/25); 
 the library effectively operated at QOS0 (QOS1/2 appeared to work, but the delivery guarantees were not honored).
 
 This has now been rectified (as of v0.20); a major change (which, despite testing, is likely to introduce issues!). 

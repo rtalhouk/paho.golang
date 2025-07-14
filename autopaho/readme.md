@@ -106,7 +106,7 @@ func main() {
 }
 ```
 
-See the [other examples](https://github.com/eclipse/paho.golang/tree/master/autopaho/examples) for further information on usage.
+See the [other examples](https://github.com/rtalhouk/paho.golang/tree/master/autopaho/examples) for further information on usage.
 
 ## QOS 1 & 2
 

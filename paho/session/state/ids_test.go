@@ -21,8 +21,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/eclipse/paho.golang/packets"
-	"github.com/eclipse/paho.golang/paho/session"
+	"github.com/rtalhouk/paho.golang/packets"
+	"github.com/rtalhouk/paho.golang/paho/session"
 	"github.com/stretchr/testify/assert"
 )
 
